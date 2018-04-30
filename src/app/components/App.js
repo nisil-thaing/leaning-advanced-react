@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 
+import DataApi from '../DataApi';
+import { data } from '../test-data';
+import ArticleList from './ArticleList';
+
+const DATA_API = new DataApi(data);
+
 class App extends Component {
-  state = {
-    answer: 52
-  };
+  constructor(props) {
+    super(props);
 
-  asyncFunc = () => {
-    return Promise.resolve(37);
-  }
-
-  async componentDidMount() {
-    this.setState({
-      answer: await this.asyncFunc()
-    });
+    this.state = {
+      articles: DATA_API.fetchArticles(),
+      authors: DATA_API.fetchAuthors()
+    };
   }
 
   render() {
     return (
-      <h2>Isaac - Hello From The Other Side -- { this.state.answer }</h2>
+      <ArticleList
+        articles={ this.state.articles }
+        authors={ this.state.authors }
+      />
     );
   }
 }
