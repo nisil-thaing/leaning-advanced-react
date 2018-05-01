@@ -7,6 +7,13 @@ import ArticleList from './ArticleList';
 const DATA_API = new DataApi(data);
 
 class App extends Component {
+  articleActions = {
+    getAuthorByAuthorId: authorId => (authorId
+                                        && this.state.authors
+                                        && this.state.authors[authorId])
+                                      || {}
+  };
+
   constructor(props) {
     super(props);
 
@@ -20,7 +27,7 @@ class App extends Component {
     return (
       <ArticleList
         articles={ this.state.articles }
-        authors={ this.state.authors }
+        articleActions={ this.articleActions }
       />
     );
   }
