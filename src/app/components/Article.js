@@ -4,7 +4,7 @@ const Article = props => {
   const { article, author } = props;
   return (
     <div>
-      <div>{ article.title }</div>
+      <h2>{ article.title }</h2>
       <div>{ article.date }</div>
       <div>
         <a href={ author.website }>
