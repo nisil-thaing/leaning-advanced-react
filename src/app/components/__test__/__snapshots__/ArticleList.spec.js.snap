@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleList renderer correctly 1`] = `
+<div>
+  <div
+    className="Article"
+  >
+    <div
+      className="title"
+    />
+    <div
+      className="timestamp"
+    >
+      Invalid Date
+    </div>
+    <div
+      className="author"
+    >
+      <a
+        href={undefined}
+      >
+         
+      </a>
+    </div>
+    <div
+      className="body"
+    />
+  </div>
+  <div
+    className="Article"
+  >
+    <div
+      className="title"
+    />
+    <div
+      className="timestamp"
+    >
+      Invalid Date
+    </div>
+    <div
+      className="author"
+    >
+      <a
+        href={undefined}
+      >
+         
+      </a>
+    </div>
+    <div
+      className="body"
+    />
+  </div>
+  <div
+    className="Article"
+  >
+    <div
+      className="title"
+    />
+    <div
+      className="timestamp"
+    >
+      Invalid Date
+    </div>
+    <div
+      className="author"
+    >
+      <a
+        href={undefined}
+      >
+         
+      </a>
+    </div>
+    <div
+      className="body"
+    />
+  </div>
+</div>
+`;
