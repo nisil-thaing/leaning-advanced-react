@@ -1,11 +1,13 @@
 import express from 'express';
+
 import config from './config';
+import handleRender from './handle-render';
 
 const app = express();
 
-app.use(express.static('public'));
+app.get('/', handleRender);
 
-app.get('/', (req, res) => res.render('index'));
+app.use(express.static('public'));
 
 app.listen(config.port, () => {
   console.log(`Server is running on port ${ config.port }...`);
