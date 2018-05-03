@@ -5,10 +5,16 @@ const extractSass = new ExtractTextPlugin('bundle.css');
 
 const config = {
   entry: [
-    './src/assets/styles/main.scss',
+    'assets/styles/main.scss',
     'babel-polyfill',
-    './src/app/components/Index.js'
+    'app/renderers/dom.js'
   ],
+  resolve: {
+    modules: [
+      path.resolve('./src'),
+      path.resolve('./node_modules')
+    ]
+  },
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
