@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin('bundle.css');
 
@@ -16,7 +17,7 @@ const config = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   devtool: 'inline-source-map',
@@ -44,7 +45,16 @@ const config = {
     ]
   },
   plugins: [
-    extractSass
+    extractSass,
+    new CopyWebpackPlugin([
+      {
+        from: 'src/assets/images/**/*',
+        to: 'assets/images/[name].[ext]'
+      }, {
+        from: 'views/index.html',
+        to: 'index.html'
+      }
+    ])
   ]
 };
 
