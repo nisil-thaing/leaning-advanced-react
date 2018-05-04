@@ -49,7 +49,7 @@ const config = {
     new CopyWebpackPlugin([
       {
         from: 'src/assets/images/**/*',
-        to: 'assets/images/[name].[ext]'
+        to: '[name].[ext]'
       }, {
         from: 'views/index.html',
         to: 'index.html'
