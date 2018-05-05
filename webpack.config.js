@@ -1,8 +1,22 @@
 const path = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const extractSass = new ExtractTextPlugin('bundle.css');
+const htmlWebpack = new HtmlWebpackPlugin({
+  title: 'Advanced React App',
+  template: 'views/index.jade',
+  filename: 'index.html',
+  hash: true
+});
+const extractSass = new ExtractTextPlugin('[name].bundle.css');
+const copyAssets = new CopyWebpackPlugin([
+  {
+    from: 'src/assets/images/**/*',
+    to: '[name].[ext]'
+  }
+]);
 
 const config = {
   entry: [
@@ -12,17 +26,19 @@ const config = {
   ],
   resolve: {
     modules: [
+      path.resolve('./views'),
       path.resolve('./src'),
       path.resolve('./node_modules')
     ]
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   devtool: 'inline-source-map',
   module: {
     rules: [
+      { test: /\.jade$/, loader: 'jade-loader' },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -45,16 +61,9 @@ const config = {
     ]
   },
   plugins: [
+    htmlWebpack,
     extractSass,
-    new CopyWebpackPlugin([
-      {
-        from: 'src/assets/images/**/*',
-        to: '[name].[ext]'
-      }, {
-        from: 'views/index.html',
-        to: 'index.html'
-      }
-    ])
+    copyAssets,
   ]
 };
 

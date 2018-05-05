@@ -6,7 +6,7 @@ import serverRenderer from './renderers/server';
 const handleRender = (req, res) => {
   const initializeData = serverRenderer() || 'Loading...';
   const indexFilePath
-    = path.resolve('views', 'index.html');
+    = path.resolve('dist', 'index.html');
 
   fs.readFile(indexFilePath, 'utf8', (err, data) => {
     if (err) throw err;
