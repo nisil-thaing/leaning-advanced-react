@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 
-import DataApi from '../DataApi';
-import { data } from '../test-data';
+import { DataApi } from 'app/services';
+import { testData as data } from 'app/raw-data';
 import ArticleList from './ArticleList';
 
 const DATA_API = new DataApi(data);
 
 class App extends Component {
   articleActions = {
-    getAuthorByAuthorId: authorId => (authorId
-                                        && this.state.authors
-                                        && this.state.authors[authorId])
-                                      || {}
+    getAuthorByAuthorId:
+      authorId =>
+        (authorId
+          && this.state.authors
+          && this.state.authors[authorId])
+        || {}
   };
 
   constructor(props) {

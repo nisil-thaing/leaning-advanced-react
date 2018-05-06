@@ -1,9 +1,9 @@
 class DataApi {
   constructor(rawData) {
-    this.rawData = rawData;
+    this.rawData = rawData || [];
   }
 
-  mapIntoObject(arr) {
+  mapIntoObject(arr = []) {
     return arr.reduce((acc, curr) => {
       if (!curr.id) return;
 
