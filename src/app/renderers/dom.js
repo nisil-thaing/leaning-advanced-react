@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'app/components/App';
 
+const initialData = {
+  articles: [],
+  authors: []
+};
+
 ReactDOM.hydrate(
-  <App />,
+  <App initialData={ initialData } />,
   document.getElementById('root')
 );

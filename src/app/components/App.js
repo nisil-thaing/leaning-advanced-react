@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
 import { DataApi } from 'app/services';
-import { testData as data } from 'app/raw-data';
+import { ApiClient } from 'app/common';
 import ArticleList from './ArticleList';
-
-const DATA_API = new DataApi(data);
 
 class App extends Component {
   articleActions = {
@@ -15,14 +13,37 @@ class App extends Component {
           && this.state.authors[authorId])
         || {}
   };
+  apiClient = new ApiClient;
 
   constructor(props) {
     super(props);
 
+    const {
+      initialData: {
+        articles = [],
+        authors = []
+      } = {}
+    } = this.props || {};
+
     this.state = {
-      articles: DATA_API.fetchArticles(),
-      authors: DATA_API.fetchAuthors()
+      articles,
+      authors
     };
+  }
+
+  async componentDidMount() {
+    try {
+      const res = await this.apiClient.get('/api/test-data');
+      const data = res.data;
+      const api = new DataApi(data);
+
+      this.setState({
+        articles: api.fetchArticles(),
+        authors: api.fetchAuthors()
+      });
+    } catch(err) {
+      // TODO
+    }
   }
 
   render() {
