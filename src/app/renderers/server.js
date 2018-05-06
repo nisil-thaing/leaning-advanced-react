@@ -19,9 +19,12 @@ const serverRenderer = async () => {
       authors: api.fetchAuthors()
     };
 
-    return ReactDOMServer.renderToString(
-      <App initialData={ initialData } />
-    );
+    return {
+      initializeMarkup: ReactDOMServer.renderToString(
+        <App initialData={ initialData } />
+      ),
+      initializeData: initialData
+    };
   } catch(err) {
     return null;
   }
