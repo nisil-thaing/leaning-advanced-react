@@ -3,21 +3,18 @@ import path from 'path';
 
 import serverRenderer from './renderers/server';
 
-const handleRender = (req, res) => {
-  const initializeData = serverRenderer() || 'Loading...';
+const handleRender = async (req, res) => {
+  const initializeData = await serverRenderer() || 'Loading...';
   const indexFilePath
     = path.resolve('dist', 'index.html');
 
-  fs.readFile(indexFilePath, 'utf8', (err, data) => {
-    if (err) throw err;
-
-    // Inserts the rendered React HTML into our main div
-    const document
-      = data.replace(/<div id="root"><\/div>/, `<div id="root">${ initializeData }</div>`);
-
-    // Sends the response back to the client
+  try {
+    const data = fs.readFileSync(indexFilePath, 'utf8');
+    const document = data.replace(/<div id="root"><\/div>/, `<div id="root">${ initializeData }</div>`);
     res.send(document);
-  });
+  } catch(err) {
+    throw err;
+  }
 };
 
 export default handleRender;
