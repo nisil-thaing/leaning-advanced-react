@@ -23,7 +23,8 @@ const serverRenderer = async () => {
       initializeMarkup: ReactDOMServer.renderToString(
         <App initialData={ initialData } />
       ),
-      initializeData: initialData
+      initializeData: initialData,
+      title: 'Advanced React App'
     };
   } catch(err) {
     return null;

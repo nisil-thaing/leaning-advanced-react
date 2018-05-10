@@ -1,15 +1,8 @@
 const path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const htmlWebpack = new HtmlWebpackPlugin({
-  title: 'Advanced React App',
-  template: 'views/index.jade',
-  filename: 'index.html',
-  hash: true
-});
 const extractSass = new ExtractTextPlugin('[name].bundle.css');
 const copyAssets = new CopyWebpackPlugin([
   {
@@ -26,7 +19,6 @@ const config = {
   ],
   resolve: {
     modules: [
-      path.resolve('./views'),
       path.resolve('./src'),
       path.resolve('./node_modules')
     ]
@@ -61,7 +53,6 @@ const config = {
     ]
   },
   plugins: [
-    htmlWebpack,
     extractSass,
     copyAssets,
   ]
