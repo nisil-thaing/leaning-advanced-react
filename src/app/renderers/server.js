@@ -1,23 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import config from 'app/config';
-import { ApiClient } from 'app/common';
-import { DataApi } from 'app/services';
+import { DemoDataService } from 'app/services';
 import App from 'app/components/App';
 
-const apiClient = new ApiClient();
+const demoDataService = new DemoDataService();
 
 const serverRenderer = async () => {
   try {
-    const res
-      = await apiClient.get(`http://${ config.host }:${ config.port }/api/test-data`);
-    const { data } = res;
-    const api = new DataApi(data);
-    const initialData = {
-      articles: api.fetchArticles(),
-      authors: api.fetchAuthors()
-    };
+    const initialData = await demoDataService.fetchDemoData();
 
     return {
       initializeMarkup: ReactDOMServer.renderToString(

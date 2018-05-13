@@ -1,4 +1,4 @@
-import { DataApi } from 'app/services';
+import { DataApi } from 'app/models';
 import { testData as data } from 'app/raw-data';
 
 const api = new DataApi(data);

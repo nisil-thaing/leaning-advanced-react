@@ -1,3 +1,5 @@
-import DataApi from './DataApi';
+import DemoDataService from './demo-data.service';
 
-export { DataApi };
+export {
+  DemoDataService
+};
