@@ -6,11 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
 import App from 'app/components/App';
-import {
-  rootReducer,
-  actions,
-  sagas
-} from 'app/stores';
+import { rootReducer } from 'app/stores';
 
 const initialData = window.initializeData || {
   articles: [],
@@ -24,8 +20,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(...middlewares)
 );
-sagaMiddleware.run(sagas.demoDataSaga);
-store.dispatch(actions.DEMO_DATA_ACTIONS.fetchDemoData());
 
 ReactDOM.hydrate(
   <Provider store={store}>

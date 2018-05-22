@@ -1,20 +1,35 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import { DemoDataService } from 'app/services';
+import { rootReducer, actions, sagas } from 'app/stores';
 import App from 'app/components/App';
 
-const demoDataService = new DemoDataService();
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
+const store = createStore(
+  rootReducer,
+  applyMiddleware(...middlewares)
+);
+
+sagaMiddleware.run(sagas.demoDataSaga);
+store.dispatch(actions.DEMO_DATA_ACTIONS.fetchDemoData());
 
 const serverRenderer = async () => {
   try {
-    const initialData = await demoDataService.fetchDemoData();
+    const state = await store.getState();
+    const {
+      demoDataReducer: {
+        data: initializeData = null
+      } = {}
+    } = state || {};
 
     return {
       initializeMarkup: ReactDOMServer.renderToString(
-        <App initialData={ initialData } />
+        <App initialData={ initializeData } />
       ),
-      initializeData: initialData,
+      initializeData,
       title: 'Advanced React App'
     };
   } catch(err) {
