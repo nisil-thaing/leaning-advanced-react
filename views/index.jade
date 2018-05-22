@@ -10,5 +10,5 @@ head
     #root.
       !{ initializeMarkup }
     script.
-      window.initializeData = !{ JSON.stringify(initializeData) }
+      window.__PRELOADED_STATE__ = !{ JSON.stringify(initializeData).replace(/</g, '\\u003c') }
     script(type="application/javascript", src="main.bundle.js?v=#{ staticVersion }")

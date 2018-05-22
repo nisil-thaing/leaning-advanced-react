@@ -1,25 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
 import App from 'app/components/App';
-import { rootReducer } from 'app/stores';
+import { configureStore } from '../stores';
 
-const initialData = window.initializeData || {
+const initialData = window.__PRELOADED_STATE__ || {
   articles: [],
   authors: []
 };
 
-const sagaMiddleware = createSagaMiddleware();
-// Defining middleware list, could be handle this list by the environment, while need not the logger middleware on the production environment
-const middlewares = [logger, sagaMiddleware];
-const store = createStore(
-  rootReducer,
-  applyMiddleware(...middlewares)
-);
+delete window.__PRELOADED_STATE__;
+
+const store = configureStore([logger]);
 
 ReactDOM.hydrate(
   <Provider store={store}>

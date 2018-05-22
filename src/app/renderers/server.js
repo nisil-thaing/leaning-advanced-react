@@ -1,19 +1,12 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 
-import { rootReducer, actions, sagas } from 'app/stores';
 import App from 'app/components/App';
+import { configureStore, actions, sagas } from 'app/stores';
 
-const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware];
-const store = createStore(
-  rootReducer,
-  applyMiddleware(...middlewares)
-);
+const store = configureStore();
 
-sagaMiddleware.run(sagas.demoDataSaga);
+store.runSaga(sagas.demoDataSaga);
 store.dispatch(actions.DEMO_DATA_ACTIONS.fetchDemoData());
 
 const serverRenderer = () => {
