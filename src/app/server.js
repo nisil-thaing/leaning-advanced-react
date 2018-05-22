@@ -15,7 +15,7 @@ const randomStaticVersion = (() => {
 app.set('view engine', 'jade');
 
 app.get('/', async (req, res) => {
-  const initialContent = await serverRenderer();
+  const initialContent = serverRenderer();
   res.render('index', { ...initialContent, staticVersion: randomStaticVersion });
 });
 

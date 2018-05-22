@@ -16,25 +16,21 @@ const store = createStore(
 sagaMiddleware.run(sagas.demoDataSaga);
 store.dispatch(actions.DEMO_DATA_ACTIONS.fetchDemoData());
 
-const serverRenderer = async () => {
-  try {
-    const state = await store.getState();
-    const {
-      demoDataReducer: {
-        data: initializeData = null
-      } = {}
-    } = state || {};
+const serverRenderer = () => {
+  const state = store.getState();
+  const {
+    demoDataReducer: {
+      data: initializeData = null
+    } = {}
+  } = state || {};
 
-    return {
-      initializeMarkup: ReactDOMServer.renderToString(
-        <App initialData={ initializeData } />
-      ),
-      initializeData,
-      title: 'Advanced React App'
-    };
-  } catch(err) {
-    return null;
-  }
+  return {
+    initializeMarkup: ReactDOMServer.renderToString(
+      <App initialData={ initializeData } />
+    ),
+    initializeData,
+    title: 'Advanced React App'
+  };
 };
 
 export default serverRenderer;
