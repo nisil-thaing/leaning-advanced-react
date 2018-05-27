@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { Provider } from 'react-redux';
 
 import App from 'app/components/App';
 import { configureStore, actions, sagas } from 'app/stores';
@@ -10,18 +11,15 @@ store.runSaga(sagas.demoDataSaga);
 store.dispatch(actions.DEMO_DATA_ACTIONS.fetchDemoData());
 
 const serverRenderer = () => {
-  const state = store.getState();
-  const {
-    demoDataReducer: {
-      data: initializeData = null
-    } = {}
-  } = state || {};
+  const initialState = store.getState();
 
   return {
     initializeMarkup: ReactDOMServer.renderToString(
-      <App initialData={ initializeData } />
+      <Provider store={ store }>
+        <App />
+      </Provider>
     ),
-    initializeData,
+    initialState,
     title: 'Advanced React App'
   };
 };

@@ -7,9 +7,10 @@ import * as sagas from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const configureStore = (optionalMiddlewares = []) => ({
+const configureStore = (initialState = {}, optionalMiddlewares = []) => ({
   ...createStore(
     rootReducer,
+    initialState,
     applyMiddleware(...optionalMiddlewares, sagaMiddleware)
   ),
   runSaga: sagaMiddleware.run

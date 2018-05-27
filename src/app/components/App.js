@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import ArticleList from './ArticleList';
 
@@ -7,35 +8,28 @@ class App extends Component {
     getAuthorByAuthorId:
       authorId =>
         (authorId
-          && this.state.authors
-          && this.state.authors[authorId])
+          && this.props.authors
+          && this.props.authors[authorId])
         || {}
   };
-
-  constructor(props) {
-    super(props);
-
-    const {
-      initialData: {
-        articles = [],
-        authors = []
-      } = {}
-    } = this.props || {};
-
-    this.state = {
-      articles,
-      authors
-    };
-  }
 
   render() {
     return (
       <ArticleList
-        articles={ this.state.articles }
+        articles={ this.props.articles }
         articleActions={ this.articleActions }
       />
     );
   }
 }
 
-export default App;
+const mapStateToProps = ({
+  demoDataReducer: {
+    data: {
+      articles,
+      authors
+    }
+  }
+}) => ({ articles, authors });
+
+export default connect(mapStateToProps)(App);
