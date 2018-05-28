@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import * as actions from './actions';
 import * as sagas from './sagas';
+import * as selectors from './selectors';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,5 +21,6 @@ export {
   rootReducer,
   actions,
   sagas,
+  selectors,
   configureStore
 };

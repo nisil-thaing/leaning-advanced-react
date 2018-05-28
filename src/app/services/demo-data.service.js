@@ -1,5 +1,4 @@
 import { ApiClient } from 'app/common';
-import { DataApi } from 'app/models';
 
 import config from 'app/config';
 
@@ -11,12 +10,8 @@ class DemoDataService {
     try {
       const res = await this.apiClient.get(this.endpoint);
       const { data } = res;
-      const dataApi = new DataApi(data);
 
-      return {
-        articles: dataApi.fetchArticles(),
-        authors: dataApi.fetchAuthors()
-      };
+      return data;
     } catch(err) {
       throw new Error(err);
     }
